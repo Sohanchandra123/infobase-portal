@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: infobase-agent-portal
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --workers 1 --timeout 120 --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DATABRICKS_HOST
+        sync: false
+      - key: DATABRICKS_TOKEN
+        sync: false
+      - key: AGENT_ENDPOINT
+        value: mas-44d28858-endpoint
+      - key: ALLOWED_ORIGIN
+        sync: false
